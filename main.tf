@@ -10,7 +10,7 @@ resource "aws_sns_topic" "notification_topic" {
         "Action": "SNS:Publish",
         "Resource": "arn:aws:sns:*:*:s3-event-notification-topic",
         "Condition":{
-            "ArnLike":{"aws:SourceArn":"${aws_s3_bucket.bucket.arn}"}
+            "ArnLike":{"aws:SourceArn":"${aws_s3_bucket.s3_bucket.arn}"}
         }
     }]
 }
@@ -28,10 +28,10 @@ resource "aws_s3_bucket" "s3_bucket" {
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
-  bucket = aws_s3_bucket.bucket.id
+  bucket = aws_s3_bucket.s3_bucket.id
 
   topic {
-    topic_arn     = aws_sns_topic.topic.arn
+    topic_arn     = aws_sns_topic.notification_topic.arn
     events        = ["s3:ObjectCreated:*"]
     filter_prefix = var.filter_prefix
     filter_suffix = var.filter_suffix == null ? "" : var.filter_suffix

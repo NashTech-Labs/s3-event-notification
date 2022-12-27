@@ -1,13 +1,9 @@
 output "sns_topic_name" {
-  value = aws_sns_topic.topic.name
+  value = aws_sns_topic.notification_topic.name
 }
 
 output "sns_topic_arn" {
-  value = aws_sns_topic.topic.arn
-}
-
-output "bucket_name" {
-  value = aws_s3_bucket.s3_bucket
+  value = aws_sns_topic.notification_topic.arn
 }
 
 output "bucket_arn" {
